@@ -2,53 +2,57 @@
 
 public static class Solver
 {
-    private static List<int> GetDepths(string input)
+    private static List<MovementCommand> GetMovements(string input)
     {
-        return input.Split("\r\n").Select(x => int.Parse(x)).ToList();
+        return input.Split("\r\n").Select(x => MovementCommand.FromString((x))).ToList();
     }
 
-    public static int GetNumberOfIncreasedDepths(string input)
+    public static int GetHorizontalAndDepthMultiplied(string input)
     {
-        var depths = GetDepths(input);
+        var movements = GetMovements(input);
         
-        var numberOfIncreasedDepths = 0;
+        var totalForwardDistance = GetTotalDistanceForDirection(movements, MovementDirection.Forward);
+        var totalDownDistance = GetTotalDistanceForDirection(movements, MovementDirection.Down);
+        var totalUpDistance = GetTotalDistanceForDirection(movements, MovementDirection.Up);
 
-        for (var i = 0; i < depths.Count-1; i++)
+        return (totalDownDistance - totalUpDistance) * totalForwardDistance;
+    }
+
+    private static int GetTotalDistanceForDirection(List<MovementCommand> movements, MovementDirection movementDirection)
+    {
+        return movements.Where(x => x.Direction == movementDirection).Sum(x => x.Distance);
+    }
+
+    public static int GetHorizontalAndDepthWithAimCalculationMultiplied(string input)
+    {
+        var movements = GetMovements(input);
+        var totalForwardDistance = GetTotalDistanceForDirection(movements, MovementDirection.Forward);
+        
+        var totalDepth = GetDepthWithAimCalculation(movements);
+        return totalDepth * totalForwardDistance;
+    }
+
+    private static int GetDepthWithAimCalculation(List<MovementCommand> movements)
+    {
+        var depth = 0;
+        var aim = 0;
+
+        foreach (var movement in movements)
         {
-            var comparisonA = depths.ElementAt(i);
-            var comparisonB = depths.ElementAt(i+1);
-
-            if (IsDepthIncreasing(comparisonA, comparisonB))
+            _ = movement.Direction switch
             {
-                numberOfIncreasedDepths++;
-            }
+                MovementDirection.Forward => depth += CalculateDepthMutation(movement.Distance, aim),
+                MovementDirection.Down => aim += movement.Distance,
+                MovementDirection.Up => aim -= movement.Distance,
+                _ => throw new InvalidOperationException()
+            };
         }
 
-        return numberOfIncreasedDepths;
+        return depth;
     }
     
-    private static bool IsDepthIncreasing(int comparisonA, int comparisonB)
+    public static int CalculateDepthMutation(int distance, int aim)
     {
-        return comparisonA < comparisonB;
-    }
-
-    public static object GetNumberOfIncreasedDepthsWithSlidingWindow(string input)
-    {
-        var depths = GetDepths(input);
-        
-        var numberOfIncreasedDepths = 0;
-
-        for (var i = 0; i < depths.Count-3; i++)
-        {
-            var comparisonA = depths.GetRange(i, 3).Sum();
-            var comparisonB = depths.GetRange(i+1, 3).Sum();
-
-            if (IsDepthIncreasing(comparisonA, comparisonB))
-            {
-                numberOfIncreasedDepths++;
-            }
-        }
-
-        return numberOfIncreasedDepths;
+        return distance * aim;
     }
 }

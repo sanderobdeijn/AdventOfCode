@@ -7,6 +7,6 @@ public class Challenge2 : ISolve
     public object Solve()
     {
         var input = Input;
-        return Solver.GetNumberOfIncreasedDepthsWithSlidingWindow(input);
+        return Solver.GetHorizontalAndDepthWithAimCalculationMultiplied(input);
     }
 }

@@ -52,7 +52,6 @@ static class Program
             Console.WriteLine("Solution: " + solutionText);
             Console.WriteLine("Duration: " + timer.DurationFormatted);
             Console.WriteLine();
-            Console.ReadKey();
         }
     }
 

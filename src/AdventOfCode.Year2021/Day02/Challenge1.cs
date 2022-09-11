@@ -7,6 +7,6 @@ public class Challenge1 : ISolve
     public object Solve()
     {
         var input = Input;
-        return Solver.GetNumberOfIncreasedDepths(input);
+        return Solver.GetHorizontalAndDepthMultiplied(input);
     }
 }
