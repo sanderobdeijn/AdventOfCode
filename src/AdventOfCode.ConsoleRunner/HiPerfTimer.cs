@@ -3,22 +3,17 @@
 namespace AdventOfCode;
 
 /// <summary>
-/// High performance timer class
+///     High performance timer class
 /// </summary>
 public class HiPerfTimer
 {
     private const string DurationMsTemplate = "Duration: {0} ms";
     public const int MsConversionFactor = 1000;
-
-    [DllImport("Kernel32.dll")]
-    private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
-    [DllImport("Kernel32.dll")]
-    private static extern bool QueryPerformanceFrequency(out long lpFrequency);
-    private long _startTime, _stopTime;
     private readonly long _freq;
+    private long _startTime, _stopTime;
 
     /// <summary>
-    /// Constructor
+    ///     Constructor
     /// </summary>
     public HiPerfTimer()
     {
@@ -28,10 +23,8 @@ public class HiPerfTimer
             _stopTime = 0;
 
             if (QueryPerformanceFrequency(out _freq) == false)
-            {
                 // high-performance counter not supported
                 throw new Exception("high-performance counter not supported");
-            }
         }
         catch (Exception)
         {
@@ -39,8 +32,42 @@ public class HiPerfTimer
         }
     }
 
+
     /// <summary>
-    /// Start the timer
+    ///     Returns the duration of the timer (in milliseconds)
+    /// </summary>
+    public double Duration => (_stopTime - _startTime) / (double)_freq * MsConversionFactor;
+
+    /// <summary>
+    ///     Returns the duration of the timer (in milliseconds)
+    /// </summary>
+    public string DurationMs =>
+        string.Format(DurationMsTemplate, (_stopTime - _startTime) / (double)_freq * MsConversionFactor);
+
+    /// <summary>
+    ///     Returns the duration of the timer, formatted as a single string.
+    /// </summary>
+    public string DurationFormatted
+    {
+        get
+        {
+            var totalMilliseconds = (_stopTime - _startTime) / (double)_freq * MsConversionFactor;
+            var totalSeconds = totalMilliseconds / MsConversionFactor;
+            var totalMinutes = totalSeconds / 60;
+
+            return string.Format("{0:0.####} ms, {1:0.####} sec, {2:0.####} min", totalMilliseconds, totalSeconds,
+                totalMinutes);
+        }
+    }
+
+    [DllImport("Kernel32.dll")]
+    private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
+
+    [DllImport("Kernel32.dll")]
+    private static extern bool QueryPerformanceFrequency(out long lpFrequency);
+
+    /// <summary>
+    ///     Start the timer
     /// </summary>
     public void Start()
     {
@@ -52,7 +79,7 @@ public class HiPerfTimer
     }
 
     /// <summary>
-    /// Stops the timer.
+    ///     Stops the timer.
     /// </summary>
     public void Stop()
     {
@@ -63,43 +90,5 @@ public class HiPerfTimer
     {
         _startTime = 0;
         _stopTime = 0;
-    }
-
-
-    /// <summary>
-    /// Returns the duration of the timer (in milliseconds)
-    /// </summary>
-    public double Duration
-    {
-        get
-        {
-            return ((double)(_stopTime - _startTime) / (double)_freq) * MsConversionFactor;
-        }
-    }
-
-    /// <summary>
-    /// Returns the duration of the timer (in milliseconds)
-    /// </summary>
-    public string DurationMs
-    {
-        get
-        {
-            return String.Format(DurationMsTemplate, (((double)(_stopTime - _startTime) / (double)_freq) * MsConversionFactor));
-        }
-    }
-
-    /// <summary>
-    /// Returns the duration of the timer, formatted as a single string.
-    /// </summary>
-    public string DurationFormatted
-    {
-        get
-        {
-            var totalMilliseconds = (((_stopTime - _startTime) / (double)_freq) * MsConversionFactor);
-            var totalSeconds = totalMilliseconds / (double)MsConversionFactor;
-            var totalMinutes = totalSeconds / (double)60;
-
-            return String.Format("{0:0.####} ms, {1:0.####} sec, {2:0.####} min", totalMilliseconds, totalSeconds, totalMinutes);
-        }
     }
 }

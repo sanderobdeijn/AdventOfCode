@@ -2,12 +2,16 @@
 
 public record MovementCommand
 {
+    public int Distance { get; init; }
+
+    public MovementDirection Direction { get; init; }
+
     public static MovementCommand FromString(string movementString)
     {
         return new MovementCommand
         {
             Distance = ParseDistance(movementString),
-            Direction = ParseDirection(movementString),
+            Direction = ParseDirection(movementString)
         };
     }
 
@@ -27,10 +31,6 @@ public record MovementCommand
     {
         var directionString = GetParts(movementString).ElementAt(0);
 
-        return (MovementDirection) Enum.Parse(typeof(MovementDirection), directionString, true);
+        return (MovementDirection)Enum.Parse(typeof(MovementDirection), directionString, true);
     }
-
-    public int Distance { get; init; }
-
-    public MovementDirection Direction { get; init; }
 }

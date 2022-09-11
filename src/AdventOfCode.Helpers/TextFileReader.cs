@@ -6,7 +6,7 @@ public static class TextFileReader
     {
         return File.ReadAllText(filePath);
     }
-    
+
     public static string ReadFileAsPasteableString(string filePath)
     {
         return ReadFile(filePath).Replace(@"\r\n", @"\\r\\n");
