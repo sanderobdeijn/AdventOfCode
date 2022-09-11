@@ -2,7 +2,7 @@
 
 public class Challenge1 : ISolve
 {
-    public string Input => TextFileReader.ReadFileAsPasteableString("Day01/Input.txt");
+    public string Input => TextFileReader.ReadFileAsPasteableString($"Day{SolveHelper.GetDay<Challenge1>()}/Input.txt");
 
     public object Solve()
     {

@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Core;
+using AdventOfCode.Helpers;
 using AdventOfCode.Year2021;
 
 namespace AdventOfCode.ConsoleRunner;
@@ -15,13 +16,13 @@ internal static class Program
         var timer = new HiPerfTimer();
 
         var solvesGroupedPerYear = GetAllSolves()
-            .GroupBy(GetYear)
+            .GroupBy(SolveHelper.GetYear)
             .OrderByDescending(x => x.Key)
             .ToList();
 
         // replace by choosing year later
         var solvesForYear = solvesGroupedPerYear.First();
-        var solvesGroupedPerDay = solvesForYear.GroupBy(GetDay)
+        var solvesGroupedPerDay = solvesForYear.GroupBy(SolveHelper.GetDay)
             .OrderBy(x => x.Key);
 
         var solvesForDayToRun = ShowAndSelectDayToRun(solvesGroupedPerDay);
@@ -31,7 +32,7 @@ internal static class Program
         foreach (var solve in solvesToRun)
         {
             Console.WriteLine("=======================================");
-            Console.WriteLine($"Solving {solve.Name} for Day {GetDay(solve)} Year {GetYear(solve)}");
+            Console.WriteLine($"Solving {solve.Name} for Day {SolveHelper.GetDay(solve)} Year {SolveHelper.GetYear(solve)}");
             Console.WriteLine("=======================================");
 
             var puzzle = Activator.CreateInstance(solve) as ISolve;
@@ -69,7 +70,7 @@ internal static class Program
             if (selectedSolvesValue == string.Empty)
             {
                 selectedSolves = orderedSolvesForDay.ToList();
-                Console.WriteLine($"Running all solves for day: Day {GetDay(selectedSolves.First())}");
+                Console.WriteLine($"Running all solves for day: Day {SolveHelper.GetDay(selectedSolves.First())}");
                 break;
             }
 
@@ -96,7 +97,7 @@ internal static class Program
     {
         var enumeratedSolvesForDay = solvesForDay.ToList();
 
-        Console.WriteLine($"Showing solves for day {GetYear(enumeratedSolvesForDay.First())}");
+        Console.WriteLine($"Showing solves for day {SolveHelper.GetYear(enumeratedSolvesForDay.First())}");
 
         for (var i = 1; i <= enumeratedSolvesForDay.Count(); i++)
             Console.WriteLine($"{i}: {enumeratedSolvesForDay.ElementAt(i - 1).Name}");
@@ -143,19 +144,9 @@ internal static class Program
     {
         var enumeratedSolvesGroupedPerDay = solvesGroupedPerDay.ToList();
 
-        Console.WriteLine($"Showing days for year {GetYear(enumeratedSolvesGroupedPerDay.First().First())}");
+        Console.WriteLine($"Showing days for year {SolveHelper.GetYear(enumeratedSolvesGroupedPerDay.First().First())}");
 
         foreach (var solvesForDay in enumeratedSolvesGroupedPerDay) Console.WriteLine($"Day {solvesForDay.Key}");
-    }
-
-    private static string GetYear(Type type)
-    {
-        return type.FullName?.Split('.')[1].Replace("Year", "") ?? "No year found";
-    }
-
-    private static string GetDay(Type type)
-    {
-        return type.FullName?.Split('.')[2].Replace("Day", "") ?? "No day found";
     }
 
     private static List<Type> GetAllSolves()
