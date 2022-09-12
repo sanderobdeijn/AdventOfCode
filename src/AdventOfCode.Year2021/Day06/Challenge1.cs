@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2021.Day05;
+﻿namespace AdventOfCode.Year2021.Day06;
 
 public class Challenge1 : ISolve
 {
@@ -7,6 +7,6 @@ public class Challenge1 : ISolve
     public object Solve()
     {
         var input = Input;
-        return Solver.GetNumberOfOverlappingPointsForOrthogonalClouds(input);
+        return Solver.GetNumberOfLanternFishAfterDay(input, 80);
     }
 }
