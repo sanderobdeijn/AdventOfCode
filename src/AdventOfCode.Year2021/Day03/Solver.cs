@@ -71,7 +71,7 @@ public static class Solver
 
     private static List<string> GetDiagnosticReports(string input)
     {
-        return input.Split("\r\n").ToList();
+        return input.SplitLines().ToList();
     }
 
     public static int GetLifeSupportRating(string input)

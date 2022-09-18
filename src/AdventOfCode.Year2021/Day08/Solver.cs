@@ -4,7 +4,7 @@ public static class Solver
 {
     public static int TotalNumberOf1_4_7_8(string input)
     {
-        var decoders = input.Split("\r\n").Select(x => new Decoder(x.Split('|').First().Trim().Split(' ').ToList(), x.Split('|').Last().Trim().Split(' ').ToList())).ToList();
+        var decoders = input.SplitLines().Select(x => new Decoder(x.Split('|').First().Trim().Split(' ').ToList(), x.Split('|').Last().Trim().Split(' ').ToList())).ToList();
         
         var allDecodedSignals = GetDecodedSignals(decoders);
 
@@ -18,7 +18,7 @@ public static class Solver
 
     public static int SumOfAllDecodedValues(string input)
     {
-        var decoders = input.Split("\r\n").Select(x => new Decoder(x.Split('|').First().Trim().Split(' ').ToList(), x.Split('|').Last().Trim().Split(' ').ToList())).ToList();
+        var decoders = input.SplitLines().Select(x => new Decoder(x.Split('|').First().Trim().Split(' ').ToList(), x.Split('|').Last().Trim().Split(' ').ToList())).ToList();
         
         return decoders.Sum(x => x.GetOutputValue());
     }

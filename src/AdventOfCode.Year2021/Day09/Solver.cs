@@ -29,7 +29,7 @@ public static class Solver
     
     private static List<Point> GetPoints(string input)
     {
-        var values = input.Split("\r\n").Select(x => x.Chunk(1).Select(y => int.Parse(y)).ToList()).ToList();
+        var values = input.SplitLines().Select(x => x.Chunk(1).Select(y => int.Parse(y)).ToList()).ToList();
 
         var points = new List<Point>();
 

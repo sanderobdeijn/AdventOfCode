@@ -66,7 +66,7 @@ public static class Solver
 
     private static List<BingoCard> GetCards(string input)
     {
-        var cardStringChunks = input.Split("\r\n").Take(2..).Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim())
+        var cardStringChunks = input.SplitLines().Take(2..).Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim())
             .Chunk(5);
 
         return cardStringChunks.Select(x => new BingoCard(x)).ToList();
@@ -74,7 +74,7 @@ public static class Solver
 
     private static List<int> GetDraws(string input)
     {
-        var drawsString = input.Split("\r\n").First();
+        var drawsString = input.SplitLines().First();
 
         return drawsString.Split(",").Select(x => int.Parse(x)).ToList();
     }

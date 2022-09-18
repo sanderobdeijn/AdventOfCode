@@ -4,7 +4,7 @@ public static class Solver
 {
     private static List<int> GetDepths(string input)
     {
-        return input.Split("\r\n").Select(x => int.Parse(x)).ToList();
+        return input.SplitLines().Select(x => int.Parse(x)).ToList();
     }
 
     public static int GetNumberOfIncreasedDepths(string input)

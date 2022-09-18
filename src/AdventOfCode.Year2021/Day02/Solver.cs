@@ -4,7 +4,7 @@ public static class Solver
 {
     private static List<MovementCommand> GetMovements(string input)
     {
-        return input.Split("\r\n").Select(x => MovementCommand.FromString(x)).ToList();
+        return input.SplitLines().Select(x => MovementCommand.FromString(x)).ToList();
     }
 
     public static int GetHorizontalAndDepthMultiplied(string input)

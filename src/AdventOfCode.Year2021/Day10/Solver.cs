@@ -4,7 +4,7 @@ public static class Solver
 {
     public static int TotalSyntaxErrorScore(string input)
     {
-        var navigationLines = input.Split("\r\n").Select(x=> new NavigationLine(x)).ToList();
+        var navigationLines = input.SplitLines().Select(x=> new NavigationLine(x)).ToList();
         
         return navigationLines.Select(x => x.DeterimineStatus().IllegalValue).Sum();
     }
@@ -16,7 +16,7 @@ public static class Solver
     
     public static long GetMiddleScore(string input)
     {
-        var navigationLines = input.Split("\r\n").Select(x=> new NavigationLine(x)).ToList();
+        var navigationLines = input.SplitLines().Select(x=> new NavigationLine(x)).ToList();
         
         var orderedScores = CalculateCompletionScores(navigationLines).OrderBy(x => x).ToList();
 

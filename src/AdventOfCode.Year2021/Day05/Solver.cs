@@ -42,7 +42,7 @@ public static class Solver
     
     private static List<Line2D> GetClouds(string input)
     {
-        return input.Split("\r\n").Select(x => ParseStringToLine(x)).ToList();
+        return input.SplitLines().Select(x => ParseStringToLine(x)).ToList();
     }
     
     private static Line2D ParseStringToLine(string lineCoordidateString)
