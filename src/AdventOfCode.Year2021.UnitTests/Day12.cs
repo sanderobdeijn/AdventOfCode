@@ -1,15 +1,15 @@
-using AdventOfCode.Year2021.Day12;
+using AdventOfCode.Year2021.Day11;
 
 namespace AdventOfCode.Year2021.UnitTests;
 
-public class Day12
+public class Day11
 {
     [Fact]
     public void Challenge1ExampleShouldBeCorrect()
     {
         var sut = new Challenge1Example();
 
-        Assert.Equal(10, sut.Solve());
+        Assert.Equal(1656, sut.Solve());
     }
 
     [Fact]
@@ -17,7 +17,7 @@ public class Day12
     {
         var sut = new Challenge1Input();
 
-        Assert.Equal(3679, sut.Solve());
+        Assert.Equal(1599, sut.Solve());
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class Day12
     {
         var sut = new Challenge2Example();
 
-        Assert.Equal(36, sut.Solve());
+        Assert.Equal(195, sut.Solve());
     }
     
     [Fact]
@@ -33,6 +33,6 @@ public class Day12
     {
         var sut = new Challenge2Input();
 
-        Assert.Equal(107395, sut.Solve());
+        Assert.Equal(418, sut.Solve());
     }
 }
