@@ -1,6 +1,5 @@
 ﻿using AdventOfCode.Core;
 using AdventOfCode.Helpers;
-using AdventOfCode.Year2021;
 
 namespace AdventOfCode.ConsoleRunner;
 
@@ -10,7 +9,8 @@ internal static class Program
     {
         // this is needed to load the assembly in memory so reflection can detect it.
         Console.WriteLine("Load different year assemblies");
-        Console.WriteLine($"Loaded year {Config.Year}");
+        Console.WriteLine($"Loaded year {Year2021.Config.Year}");
+        Console.WriteLine($"Loaded year {Year2022.Config.Year}");
         Console.WriteLine();
 
         var timer = new HiPerfTimer();
