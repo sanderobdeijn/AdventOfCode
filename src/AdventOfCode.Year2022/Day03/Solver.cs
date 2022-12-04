@@ -20,9 +20,6 @@ public static class Solver
         foreach (var rucksack in rucksacks)
         {
             var doubleItems = rucksack.compartmentA.Intersect(rucksack.CompartmentB);
-            if (doubleItems.Count() != 1)
-            {
-            }
             var doubleItem = doubleItems.First();
             sum += GetPriority(doubleItem);
         }
